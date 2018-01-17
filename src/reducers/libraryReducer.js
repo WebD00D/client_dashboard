@@ -37,13 +37,16 @@ export default function library(state = initialState.library, action) {
       return {
         ...state,
         authenticated: true,
+        userId: action.userId,
+        stories: action.stories,
+        signedUpDate: action.signedUpDate,
+        name: action.name,
+        hasFreeStories: action.hasFreeStories,
+        freeStoriesRemaining: action.freeStoriesRemaining,
         email: action.email,
-        accountEmail: action.email,
-        publication: action.publication,
-        publicationId: action.userId,
-        billingInfoSetup: action.billingInfoSetup,
-        paypalEmail: action.paypal,
-        mailingAddress: action.mailing
+        credits: action.credits,
+        charges: action.charges,
+        stripeCustomerId: action.stripeCustomerId
       };
 
     case CHANGE_PUBLICATION_NAME:

@@ -1,18 +1,50 @@
 import * as allActions from "./allActions";
 
-
 // AUTHENTICATION ..
 
 export function createNewUser(userid, email, publication) {
-  return { type: allActions.CREATE_NEW_USER, userId: userid , email: email, publication: publication };
+  return {
+    type: allActions.CREATE_NEW_USER,
+    userId: userid,
+    email: email,
+    publication: publication
+  };
 }
 
-export function setCurrentUser(userid, email, publication, billingInfoSetup, paypal, mailing) {
-  return { type: allActions.SET_CURRENT_USER, userId: userid , email: email, publication: publication, billingInfoSetup: billingInfoSetup, paypal: paypal, mailing: mailing };
+export function setCurrentUser(
+  userId,
+  stories,
+  signedUpDate,
+  name,
+  hasFreeStories,
+  freeStoriesRemaining,
+  email,
+  credits,
+  charges,
+  stripeCustomerId
+) {
+  return {
+    type: allActions.SET_CURRENT_USER,
+    userId: userId,
+    stories: stories,
+    signedUpDate: signedUpDate,
+    name: name,
+    hasFreeStories: hasFreeStories,
+    freeStoriesRemaining: freeStoriesRemaining,
+    email: email,
+    credits: credits,
+    charges: charges,
+    stripeCustomerId: stripeCustomerId
+  };
 }
 
 export function addBillingInfo(userid, paypalEmail, mailingAddress) {
-  return { type: allActions.ADD_BILLING_INFO, userid: userid, paypalEmail: paypalEmail, mailingAddress: mailingAddress };
+  return {
+    type: allActions.ADD_BILLING_INFO,
+    userid: userid,
+    paypalEmail: paypalEmail,
+    mailingAddress: mailingAddress
+  };
 }
 
 export function setSlugs(slugs) {

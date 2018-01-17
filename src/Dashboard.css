@@ -29,7 +29,7 @@
 
 .dashboard__menu {
   position: fixed;
-  width: 300px;
+  width: 200px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -60,7 +60,7 @@
 }
 
 .dashboard__content {
-  padding-left: 340px;
+  padding-left: 240px;
   padding-right: 40px;
   width: 100%;
   text-align: left;
@@ -69,7 +69,7 @@
 
 .dashboard__block {
   margin-top: 40px;
-  max-width: 900px;
+  max-width: 1100px;
   width: 100%;
   background-color: white;
   border-radius: 4px;
@@ -184,21 +184,25 @@
 }
 
 .date-added {
-  width: 13%;
+  width: 15%;
 }
 
 .slug {
-  width: 30%;
+  width: 25%;
   overflow: hidden;
 }
 
 .audio {
-  width: 30%;
+  width: 15%;
 }
 
 .price {
   width: 13%;
   padding-left: 12px;
+}
+
+.publisher {
+  width: 20%;
 }
 
 .is-active {
@@ -266,14 +270,18 @@
   transform: rotate(45deg);
 }
 
-.delete-content {
+.refund-content {
   position: absolute;
   right: 0;
   color: rgb(192, 57, 43);
 }
 
-.delete-content:hover {
+.refund-content:hover {
   cursor: pointer;
+}
+
+.refund-content img {
+  height: 25px;
 }
 
 .edit-content {
@@ -304,6 +312,56 @@ li {
 .title {
   text-align: center;
   color: rgb(69, 113, 236);
+}
+
+.refund-form-wrap {
+  top: 0px;
+  z-index: 2;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(01, 01, 01, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.refund-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.refund-form {
+  width: 400px;
+  padding: 40px;
+  position: relative;
+  border-radius: 4px;
+  background-color: #ffffff;
+  text-align: left;
+}
+
+.refund-title {
+  text-align: left;
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-family: "basic-sans";
+}
+
+.refund-byline {
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 22px;
+  font-family: "basic-sans";
+  color: #A8A8A8;
+
+}
+
+.refund-reason {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-family: "basic-sans";
+
 }
 
 .add-content-wrap {

@@ -18,12 +18,8 @@ class Account extends Component {
     this._sendPasswordReset = this._sendPasswordReset.bind(this);
 
     this.state = {
-      publicationName: "",
       loginEmailAddress: "",
-      paypal: "",
-      mailingAddress: "",
       accountErrorMessage: "",
-      passResetText: "I want to change my password",
       successMessage: ""
     };
   }
@@ -38,7 +34,7 @@ class Account extends Component {
           function() {
             var updates = {};
             updates[
-              `publications/${this.props.library.publicationId}/email`
+              `readers/${this.props.library.userId}/email`
             ] = this.state.loginEmailAddress;
 
             fire
@@ -58,73 +54,37 @@ class Account extends Component {
         );
     }
 
-    if (this.state.publicationName.trim()) {
-      var pubNameUpdates = {};
-      pubNameUpdates[
-        `publications/${this.props.library.publicationId}/publication`
-      ] = this.state.publicationName;
 
-      fire
-        .database()
-        .ref()
-        .update(pubNameUpdates);
-    }
-
-    if (this.state.paypal.trim()) {
-      var paypalUpdates = {};
-      paypalUpdates[
-        `publications/${this.props.library.publicationId}/paypalEmail`
-      ] = this.state.paypal;
-
-      fire
-        .database()
-        .ref()
-        .update(paypalUpdates);
-    }
-
-    if (this.state.mailingAddress.trim()) {
-      var mailingUpdates = {};
-      mailingUpdates[
-        `publications/${this.props.library.publicationId}/mailingAddress`
-      ] = this.state.mailingAddress;
-
-      fire
-        .database()
-        .ref()
-        .update(mailingUpdates);
-    }
 
     this.setState({
       successMessage: "Account details saved!"
     });
 
     if (!this.state.accountErrorMessage.trim()) {
+
       fire
         .database()
-        .ref("publications/" + this.props.library.publicationId)
+        .ref("readers/" + user.uid)
         .once("value")
         .then(
           function(snapshot) {
-            let paypalEmail;
-            let mailingAddress;
-
-            snapshot.val().paypalEmail
-              ? (paypalEmail = snapshot.val().paypalEmail)
-              : (paypalEmail = "");
-            snapshot.val().mailingAddress
-              ? (mailingAddress = snapshot.val().mailingAddress)
-              : (mailingAddress = "");
-
+            console.log("CLIENT USER", snapshot.val());
             this.props.libraryActions.setCurrentUser(
-              this.props.library.publicationId,
+              user.uid,
+              snapshot.val().stories,
+              snapshot.val().signupDate,
+              snapshot.val().name,
+              snapshot.val().hasFreeStories,
+              snapshot.val().freeStoriesRemaining,
               snapshot.val().email,
-              snapshot.val().publication,
-              snapshot.val().billingInfoSetup,
-              paypalEmail,
-              mailingAddress
+              snapshot.val().credits,
+              snapshot.val().charges,
+              snapshot.val().stripeCustomerId
             );
           }.bind(this)
         );
+
+
     }
   } // end _handleAccountUpdates
 
@@ -165,21 +125,7 @@ class Account extends Component {
           View & update your account information
         </div>
         <div style={{ marginTop: "25px" }}>
-          <div className="login-input-wrap">
-            <div className="login-input__icon">
-              <img src={require("../images/icons8-magazine-50.png")} />
-            </div>
-            <div className="login-input__input">
-              <input
-                onChange={e =>
-                  this.setState({ publicationName: e.target.value })
-                }
-                placeholder="Publication Name"
-                defaultValue={this.props.library.publication}
-                type="text"
-              />
-            </div>
-          </div>
+
 
           <div className="login-input-wrap">
             <div className="login-input__icon">
@@ -191,41 +137,12 @@ class Account extends Component {
                   this.setState({ loginEmailAddress: e.target.value })
                 }
                 placeholder="Login Email Address"
-                defaultValue={this.props.library.accountEmail}
+                defaultValue={this.props.library.email}
                 type="text"
               />
             </div>
           </div>
 
-          <div className="login-input-wrap">
-            <div className="login-input__icon">
-              <img src={require("../images/icons8-paypal-50.png")} />
-            </div>
-            <div className="login-input__input">
-              <input
-                onChange={e => this.setState({ paypal: e.target.value })}
-                placeholder="Paypal Email Address"
-                type="text"
-                defaultValue={this.props.library.paypalEmail}
-              />
-            </div>
-          </div>
-
-          <div className="login-input-wrap">
-            <div className="login-input__icon">
-              <img src={require("../images/icons8-check-book-50.png")} />
-            </div>
-            <div className="login-input__input">
-              <input
-                onChange={e =>
-                  this.setState({ mailingAddress: e.target.value })
-                }
-                placeholder="Mailing Address"
-                type="text"
-                defaultValue={this.props.library.mailingAddress}
-              />
-            </div>
-          </div>
 
           <div
             className="send-pass-reset"

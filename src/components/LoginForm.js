@@ -17,7 +17,6 @@ class LoginForm extends Component {
 
     this._handleAccountSignIn = this._handleAccountSignIn.bind(this);
     this._handleAccountCreation = this._handleAccountCreation.bind(this);
-
     this._handleAuthentication = this._handleAuthentication.bind(this);
 
     this.state = {
@@ -45,38 +44,23 @@ class LoginForm extends Component {
         function(user) {
           fire
             .database()
-            .ref("publications/" + user.uid)
+            .ref("readers/" + user.uid)
             .once("value")
             .then(
               function(snapshot) {
-                let paypalEmail;
-                let mailingAddress;
-
-                snapshot.val().paypalEmail
-                  ? (paypalEmail = snapshot.val().paypalEmail)
-                  : (paypalEmail = "");
-                snapshot.val().mailingAddress
-                  ? (mailingAddress = snapshot.val().mailingAddress)
-                  : (mailingAddress = "");
-
+                console.log("CLIENT USER", snapshot.val());
                 this.props.libraryActions.setCurrentUser(
                   user.uid,
+                  snapshot.val().stories,
+                  snapshot.val().signupDate,
+                  snapshot.val().name,
+                  snapshot.val().hasFreeStories,
+                  snapshot.val().freeStoriesRemaining,
                   snapshot.val().email,
-                  snapshot.val().publication,
-                  snapshot.val().billingInfoSetup,
-                  paypalEmail,
-                  mailingAddress
+                  snapshot.val().credits,
+                  snapshot.val().charges,
+                  snapshot.val().stripeCustomerId
                 );
-              }.bind(this)
-            );
-
-          fire
-            .database()
-            .ref(`slugs/${user.uid}`)
-            .once("value")
-            .then(
-              function(slugs) {
-                this.props.libraryActions.setSlugs(slugs.val());
               }.bind(this)
             );
 
@@ -224,7 +208,7 @@ class LoginForm extends Component {
                 fontFamily: "basic-sans"
               }}
             >
-              The Library
+              Quiet Corner
             </div>
             <div
               style={{
@@ -237,9 +221,7 @@ class LoginForm extends Component {
             >
               {!this.state.forgotPass ? (
                 <div>
-                  {this.state.signingUp
-                    ? "Signup for a publisher account"
-                    : "  Login to your publisher dashboard"}
+                  Login to your reader dashboard
                 </div>
               ) : (
                 "Enter your account email, and we'll send a reset link."
@@ -326,41 +308,7 @@ class LoginForm extends Component {
               </button>
             </div>
 
-            {this.state.signingIn ? (
-              <a
-                href="#"
-                onClick={() =>
-                  this.setState({
-                    signingIn: false,
-                    signingUp: true,
-                    buttonText: "Sign Up",
-                    helpText: "",
-                    errorMessage: "",
-                    hasError: false
-                  })
-                }
-                className="other-action-link"
-              >
-                Don't have a publisher's account?
-              </a>
-            ) : (
-              <a
-                href="#"
-                onClick={() =>
-                  this.setState({
-                    signingIn: true,
-                    signingUp: false,
-                    buttonText: "Login",
-                    helpText: "Forgot password?",
-                    errorMessage: "",
-                    hasError: false
-                  })
-                }
-                className="other-action-link"
-              >
-                I've already got an account.
-              </a>
-            )}
+
           </div>{" "}
           {/* end login form */}
           <div className="login-background">
@@ -389,7 +337,7 @@ class LoginForm extends Component {
                 fontFamily: "karmina"
               }}
             >
-              The Library's Publisher Dashboard
+              Quiet Corner's Reader Dashboard
             </div>
           </div>
         </div>

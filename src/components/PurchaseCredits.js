@@ -46,7 +46,7 @@ class PurchaseCredits extends Component {
 
     var updates = {};
     updates[`readers/${this.props.library.userId}/credits`] =
-      5 + credits_remaining;
+      5 + Number(credits_remaining);
     updates[
       `readers/${this.props.library.userId}/charges/${chargeId}/date`
     ] = Date.now();

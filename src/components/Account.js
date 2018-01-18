@@ -20,11 +20,14 @@ class Account extends Component {
     this.state = {
       loginEmailAddress: "",
       accountErrorMessage: "",
-      successMessage: ""
+      successMessage: "",
+      passResetText: "Reset my password"
     };
   }
 
   _handleAccountUpdates() {
+
+
     if (this.state.loginEmailAddress.trim()) {
       var user = fire.auth().currentUser;
 
@@ -55,7 +58,6 @@ class Account extends Component {
     }
 
 
-
     this.setState({
       successMessage: "Account details saved!"
     });
@@ -84,12 +86,11 @@ class Account extends Component {
           }.bind(this)
         );
 
-
     }
   } // end _handleAccountUpdates
 
   _sendPasswordReset() {
-    const accountEmail = this.props.library.accountEmail;
+    const accountEmail = this.props.library.email;
     var auth = fire.auth();
 
     auth
@@ -99,7 +100,7 @@ class Account extends Component {
           // Email sent.
           this.setState({
             passResetText: `Password email send to ${
-              this.props.library.accountEmail
+              this.props.library.email
             }!`
           });
         }.bind(this)
@@ -126,7 +127,6 @@ class Account extends Component {
         </div>
         <div style={{ marginTop: "25px" }}>
 
-
           <div className="login-input-wrap">
             <div className="login-input__icon">
               <img src={require("../images/icons8-email-filled-50.png")} />
@@ -142,7 +142,6 @@ class Account extends Component {
               />
             </div>
           </div>
-
 
           <div
             className="send-pass-reset"

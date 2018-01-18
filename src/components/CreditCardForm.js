@@ -39,8 +39,8 @@ class CreditCardForm extends Component {
         email: this.props.readerEmail || "n/a"
       })
       .then(({ token }) => {
-        console.log("Received Stripe token:", token);
 
+        console.log("Received Stripe token:", token);
 
         if (!token) {
           this.props.handlePaymentIssue();
@@ -49,7 +49,7 @@ class CreditCardForm extends Component {
 
         if (this.state.saveCard) {
 
-        fetch(`http://localhost:8081/create-customer?token=${token.id}`)
+        fetch(`https://embeddable-api.herokuapp.com/create-customer?token=${token.id}`)
           .then(function(response) {
             return response.json();
           })
@@ -61,7 +61,7 @@ class CreditCardForm extends Component {
               this.props.saveCustomer(customerId);
 
               // once customer is created.. then create the charge using the customer id..
-              fetch(`http://localhost:8081/payment?token=${customerId}`)
+              fetch(`https://embeddable-api.herokuapp.com/payment?token=${customerId}`)
                 .then(function(response) {
                   return response.json();
                 })
@@ -104,7 +104,7 @@ class CreditCardForm extends Component {
 
         } else {
 
-          fetch(`http://localhost:8081/payment?token=${token.id}`)
+          fetch(`https://embeddable-api.herokuapp.com/payment?token=${token.id}`)
             .then(function(response) {
               return response.json();
             })
@@ -205,29 +205,11 @@ class CreditCardForm extends Component {
           </div>
         </div>
 
-        <div style={{ display: "flex" }}>
-          <input
-            className="styled-checkbox"
-            id="save-card"
-            type="checkbox"
-            checked={this.state.saveCard}
-            onChange={() => this.setState({ saveCard: !this.state.saveCard })}
-          />
-
-          <label htmlFor="save-card" />
-          <div>Save Card for Renewal</div>
-        </div>
-
-        <small>
-          When your account balance falls under $1.00, we'll top you off with
-          another $5.00.
-        </small>
-
         <div className="login-action-wrap">
           <button style={{ width: "250px" }}>Confirm Purchase</button>
         </div>
         <img
-          style={{ height: "30px" }}
+          style={{ height: "30px", marginTop: '22px' }}
           src="https://s3-us-west-1.amazonaws.com/stabmagazine/powered_by_stripe%403x.png"
         />
       </form>

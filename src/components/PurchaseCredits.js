@@ -105,9 +105,6 @@ class PurchaseCredits extends Component {
           Add another $5.00 to your account here.
         </div>
         <div style={{ marginTop: "25px" }}>
-          {this.props.library.stripeCustomerId ? (
-            <div>One Click Purchase</div>
-          ) : (
             <div>
               <Elements>
                 <CreditCardForm
@@ -124,7 +121,6 @@ class PurchaseCredits extends Component {
                 />
               </Elements>
             </div>
-          )}
         </div>
         {this.state.accountErrorMessage}
       </div>

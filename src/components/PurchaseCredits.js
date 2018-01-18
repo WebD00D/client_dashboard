@@ -84,7 +84,15 @@ class PurchaseCredits extends Component {
   }
 
   saveCustomerCard(customerId) {
-    alert(customerId);
+    var updates = {};
+    updates[
+      `readers/${this.props.library.userId}/stripeCustomerId`
+    ] = customerId;
+
+    fire
+      .database()
+      .ref()
+      .update(updates);
   }
 
   render() {

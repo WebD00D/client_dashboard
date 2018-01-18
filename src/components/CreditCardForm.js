@@ -61,7 +61,6 @@ class CreditCardForm extends Component {
               this.props.saveCustomer(customerId);
 
               // once customer is created.. then create the charge using the customer id..
-
               fetch(`http://localhost:8081/payment?token=${customerId}`)
                 .then(function(response) {
                   return response.json();

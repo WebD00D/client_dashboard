@@ -198,25 +198,25 @@ class LoginForm extends Component {
 
         <div className="login">
           <div className="login-form">
-            <div
-              style={{
-                marginBottom: "12px",
-                fontWeight: "600",
-                textAlign: "left",
-                color: "#000000",
-                fontSize: "36px",
-                fontFamily: "basic-sans"
-              }}
-            >
-              Quiet Corner
-            </div>
+          <div
+            style={{
+              marginBottom: "22px",
+              fontWeight: "600",
+              textAlign: "left",
+              color: "#000000",
+              fontSize: "36px",
+              fontFamily: "almaq-refined"
+            }}
+          >
+          <img className="qc-logo--lg" src={require("../images/welcome_logo.png")} />
+          </div>
             <div
               style={{
                 marginBottom: "24px",
                 textAlign: "left",
-                color: "#000000",
+                color: "rgb(12,18,103)",
                 fontSize: "19px",
-                fontFamily: "karmina"
+                fontFamily: "Nunito Sans"
               }}
             >
               {!this.state.forgotPass ? (

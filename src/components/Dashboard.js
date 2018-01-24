@@ -181,7 +181,7 @@ class Dashboard extends Component {
                     style={{ color: "#000000" }}
                     href={slugs[key].audio}
                   >
-                    Listen on Sound Cloud
+                    Listen
                   </a>
                 ) : (
                   "n/a"
@@ -192,7 +192,7 @@ class Dashboard extends Component {
                 className="refund-content"
                 onClick={() => this.setState({ showRefundForm: true, refundAmount: slugs[key].pricePaid, refundStoryId: key, refundPublisherId: slugs[key].publicationId  })}
               >
-                <img src={require("../images/icons8-refund-50.png")} />
+                <img style={{height: '20px'}} src={require("../images/icons8-refund-50.png")} />
               </div>
             </div>
           );
@@ -204,22 +204,16 @@ class Dashboard extends Component {
       <div className="App">
         <div className="dashboard">
           <div className="dashboard__nav">
+          <div
+            className="dashboard__nav__title"
+          >
+            <img className="qc-logo" src={require("../images/welcome_logo.png")} />
+          </div>
             <div
               style={{
                 color: "#252525",
-                fontFamily: "basic-sans",
-                fontSize: "30px",
-                fontWeight: "700",
-                paddingLeft: "40px"
-              }}
-            >
-              Quiet Corner
-            </div>
-            <div
-              style={{
-                color: "#252525",
-                fontFamily: "basic-sans",
-                fontSize: "20px",
+                fontFamily: "Nunito Sans",
+                fontSize: "16px",
                 fontWeight: "400",
                 paddingRight: "40px",
                 textAlign: "right"
@@ -250,18 +244,7 @@ class Dashboard extends Component {
               >
                 Content
               </div>
-              <div
-                onClick={() => this.setState({ activeTab: "Help" })}
-                className={cx([
-                  "dashboard__menu-item",
-                  {
-                    "dashboard__menu-item--active":
-                      this.state.activeTab === "Help"
-                  }
-                ])}
-              >
-                Help Desk
-              </div>
+
               <div
                 onClick={() => this.setState({ activeTab: "Account" })}
                 className={cx([
@@ -274,18 +257,7 @@ class Dashboard extends Component {
               >
                 My Account
               </div>
-              <div
-                onClick={() => this.setState({ activeTab: "Purchase" })}
-                className={cx([
-                  "dashboard__menu-item",
-                  {
-                    "dashboard__menu-item--active":
-                      this.state.activeTab === "Purchase"
-                  }
-                ])}
-              >
-                Buy Credits
-              </div>
+
               <div
                 onClick={() => this._handleSignOut()}
                 className="dashboard__menu-item "
@@ -387,7 +359,7 @@ class Dashboard extends Component {
               <div className="dashboard__content">
                 <div className="dashboard__block">
                   <div className="dashboard__content-title">
-                    <div style={{ paddingLeft: "40px" }}>
+                    <div >
                       Your Premium Content
                     </div>
                   </div>
@@ -421,7 +393,7 @@ class Dashboard extends Component {
               <div className="dashboard__content">
                 <div className="dashboard__block">
                   <div className="dashboard__content-title">
-                    <div style={{ paddingLeft: "40px" }}>My Account</div>
+                    <div>My Account</div>
                   </div>
                   <div style={{ paddingLeft: "40px" }}>
                     <Account />
